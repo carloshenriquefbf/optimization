@@ -225,11 +225,11 @@ def calcula_bfgs(H, p, q):
     p = p.reshape(2, 1)
     q = q.reshape(2, 1)
 
-    termo_2_1 = 1 + (((q.T @ H) @ q) / (p.T @ q))
-    termo_2_2 = (p @ p.T) / (p.T @ q)
+    termo_2_1 = 1 + np.nan_to_num((((q.T @ H) @ q) / (p.T @ q)))
+    termo_2_2 = np.nan_to_num((p @ p.T) / (p.T @ q))
     termo_2 = termo_2_1 * termo_2_2
     termo_3 = ((p @ (q.T @ H)) + ((H @ q) @ p.T)) / (p.T @ q)
-    return H + np.nan_to_num(termo_2) - np.nan_to_num(termo_3)
+    return H + termo_2 - np.nan_to_num(termo_3)
 
 
 # DFP para Quase Newton
