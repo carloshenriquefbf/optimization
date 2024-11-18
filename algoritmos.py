@@ -222,8 +222,8 @@ def metodo_de_quase_newton(
 
 # BFGS para Quase Newton
 def calcula_bfgs(H, p, q):
-    p = p.reshape(2, 1)
-    q = q.reshape(2, 1)
+    p = p.reshape(p.size, 1)
+    q = q.reshape(q.size, 1)
 
     termo_2_1 = 1 + np.nan_to_num((((q.T @ H) @ q) / (p.T @ q)))
     termo_2_2 = np.nan_to_num((p @ p.T) / (p.T @ q))
@@ -234,8 +234,8 @@ def calcula_bfgs(H, p, q):
 
 # DFP para Quase Newton
 def calcula_dfp(H, p, q):
-    p = p.reshape(2, 1)
-    q = q.reshape(2, 1)
+    p = p.reshape(p.size, 1)
+    q = q.reshape(q.size, 1)
 
     termo_2 = (p.T @ p) / (p.T @ q)
     termo_3 = ((H @ q) @ (q.T @ H)) / ((q.T @ H) @ q)
