@@ -1,3 +1,4 @@
 sympy
 jupyterlab
 numpy
+pandas
