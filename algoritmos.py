@@ -1,3 +1,4 @@
+import tqdm
 import numpy as np
 from sympy import diff, hessian
 from utils import (
@@ -81,7 +82,7 @@ def metodo_do_gradiente(
       - iteracoes: número de iterações
       - iteracoes_armijo: número de iterações da busca de armijo
     """
-
+    pbar = tqdm.tqdm(total=maximo_iteracoes, desc="Método do Gradiente")
     iteracoes = 0
     iteracoes_armijo = 0
     ponto = ponto_inicial
@@ -89,6 +90,7 @@ def metodo_do_gradiente(
         np.linalg.norm(substitui_variaveis_gradiente(gradiente, variaveis, ponto))
         > valor_minimo
     ):
+        pbar.update(1)
         d = -substitui_variaveis_gradiente(gradiente, variaveis, ponto)
         t, iteracoes_armijo_tmp = busca_de_armijo(
             funcao, gradiente, variaveis, ponto, d, gamma, eta
@@ -133,6 +135,7 @@ def metodo_de_newton(
       - iteracoes_armijo: número de iterações da busca de armijo
     """
 
+    pbar = tqdm.tqdm(total=maximo_iteracoes, desc="Método de Newton")
     iteracoes = 0
     iteracoes_armijo = 0
     ponto = ponto_inicial
@@ -141,6 +144,7 @@ def metodo_de_newton(
         np.linalg.norm(substitui_variaveis_gradiente(gradiente, variaveis, ponto))
         > valor_minimo
     ):
+        pbar.update(1)
         d = -np.linalg.inv(
             substitui_variaveis_hessiana(hessiana, variaveis, ponto)
         ) @ substitui_variaveis_gradiente(gradiente, variaveis, ponto)
@@ -189,6 +193,7 @@ def metodo_de_quase_newton(
       - iteracoes_armijo: número de iterações da busca de armijo
     """
 
+    pbar = tqdm.tqdm(total=maximo_iteracoes, desc=f"Método de Quase Newton ({metodo})")
     iteracoes = 0
     iteracoes_armijo = 0
     ponto = ponto_inicial
@@ -198,6 +203,7 @@ def metodo_de_quase_newton(
         np.linalg.norm(substitui_variaveis_gradiente(gradiente, variaveis, ponto))
         > valor_minimo
     ):
+        pbar.update(1)
         d = -H @ substitui_variaveis_gradiente(gradiente, variaveis, ponto)
         t, iteracoes_armijo_tmp = busca_de_armijo(
             funcao, gradiente, variaveis, ponto, d, gamma, eta
