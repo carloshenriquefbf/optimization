@@ -24,7 +24,7 @@ def busca_de_armijo(
     variaveis: list,
     ponto_inicial: np.array,
     d: np.array,
-    gama: float,
+    gamma: float,
     eta: float,
 ):
     """
@@ -34,7 +34,7 @@ def busca_de_armijo(
       - variaveis: lista de variáveis da função
       - ponto_inicial: ponto inicial
       - d: direção de descida
-      - gama: fator de redução do passo
+      - gamma: fator de redução do passo
       - eta: fator de ???     # TODO: O que é o eta?
 
     Retorna:
@@ -48,7 +48,7 @@ def busca_de_armijo(
     ) > substitui_variaveis_funcao(funcao, variaveis, ponto_inicial) + eta * t * np.dot(
         substitui_variaveis_gradiente(gradiente, variaveis, ponto_inicial), d
     ):
-        t = gama * t
+        t = gamma * t
         iteracoes += 1
 
     return t, iteracoes
@@ -60,7 +60,7 @@ def metodo_do_gradiente(
     gradiente: any,
     variaveis: list,
     ponto_inicial: np.array,
-    gama: float,
+    gamma: float,
     eta: float,
     maximo_iteracoes: int = 1000,
     valor_minimo: float = 1e-6,
@@ -71,7 +71,7 @@ def metodo_do_gradiente(
       - gradiente: gradiente da função a ser minimizada
       - variaveis: lista de variáveis da função
       - ponto_inicial: ponto inicial
-      - gama: fator de redução do passo
+      - gamma: fator de redução do passo
       - eta: fator de ??? # TODO: O que é o eta?
       - maximo_iteracoes: número máximo de iterações
       - valor_minimo: valor mínimo da função para parar a execução
@@ -91,7 +91,7 @@ def metodo_do_gradiente(
     ):
         d = -substitui_variaveis_gradiente(gradiente, variaveis, ponto)
         t, iteracoes_armijo_tmp = busca_de_armijo(
-            funcao, gradiente, variaveis, ponto, d, gama, eta
+            funcao, gradiente, variaveis, ponto, d, gamma, eta
         )
         iteracoes_armijo += iteracoes_armijo_tmp
         ponto = ponto + t * d
@@ -110,7 +110,7 @@ def metodo_de_newton(
     hessiana: any,
     variaveis: list,
     ponto_inicial: np.array,
-    gama: float,
+    gamma: float,
     eta: float,
     maximo_iteracoes: int = 1000,
     valor_minimo: float = 1e-6,
@@ -122,7 +122,7 @@ def metodo_de_newton(
       - hessiana: hessiana da função a ser minimizada
       - variaveis: lista de variáveis da função
       - ponto_inicial: ponto inicial
-      - gama: fator de redução do passo
+      - gamma: fator de redução do passo
       - eta: fator de ???     # TODO: O que é o eta?
       - maximo_iteracoes: número máximo de iterações
       - valor_minimo: valor mínimo da função para parar a execução
@@ -145,7 +145,7 @@ def metodo_de_newton(
             substitui_variaveis_hessiana(hessiana, variaveis, ponto)
         ) @ substitui_variaveis_gradiente(gradiente, variaveis, ponto)
         t, iteracoes_armijo_tmp = busca_de_armijo(
-            funcao, gradiente, variaveis, ponto, d, gama, eta
+            funcao, gradiente, variaveis, ponto, d, gamma, eta
         )
         iteracoes_armijo += iteracoes_armijo_tmp
         ponto = ponto + t * d
@@ -164,7 +164,7 @@ def metodo_de_quase_newton(
     gradiente: any,
     variaveis: list,
     ponto_inicial: np.array,
-    gama: float,
+    gamma: float,
     eta: float,
     maximo_iteracoes: int = 1000,
     valor_minimo: float = 1e-6,
@@ -177,7 +177,7 @@ def metodo_de_quase_newton(
       - hessiana: hessiana da função a ser minimizada
       - variaveis: lista de variáveis da função
       - ponto_inicial: ponto inicial
-      - gama: fator de redução do passo
+      - gamma: fator de redução do passo
       - eta: fator de ???     # TODO: O que é o eta?
       - maximo_iteracoes: número máximo de iterações
       - valor_minimo: valor mínimo da função para parar a execução
@@ -200,7 +200,7 @@ def metodo_de_quase_newton(
     ):
         d = -H @ substitui_variaveis_gradiente(gradiente, variaveis, ponto)
         t, iteracoes_armijo_tmp = busca_de_armijo(
-            funcao, gradiente, variaveis, ponto, d, gama, eta
+            funcao, gradiente, variaveis, ponto, d, gamma, eta
         )
         iteracoes_armijo += iteracoes_armijo_tmp
 
