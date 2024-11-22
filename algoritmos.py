@@ -36,7 +36,7 @@ def busca_de_armijo(
       - ponto_inicial: ponto inicial
       - d: direção de descida
       - gamma: fator de redução do passo
-      - eta: fator de ???     # TODO: O que é o eta?
+      - eta: fator de redução mínima aceitável
 
     Retorna:
       - t: passo ótimo
@@ -73,7 +73,7 @@ def metodo_do_gradiente(
       - variaveis: lista de variáveis da função
       - ponto_inicial: ponto inicial
       - gamma: fator de redução do passo
-      - eta: fator de ??? # TODO: O que é o eta?
+      - eta: fator de redução mínima aceitável
       - maximo_iteracoes: número máximo de iterações
       - valor_minimo: valor mínimo da função para parar a execução
 
@@ -125,7 +125,7 @@ def metodo_de_newton(
       - variaveis: lista de variáveis da função
       - ponto_inicial: ponto inicial
       - gamma: fator de redução do passo
-      - eta: fator de ???     # TODO: O que é o eta?
+      - eta: fator de redução mínima aceitável
       - maximo_iteracoes: número máximo de iterações
       - valor_minimo: valor mínimo da função para parar a execução
 
@@ -182,7 +182,7 @@ def metodo_de_quase_newton(
       - variaveis: lista de variáveis da função
       - ponto_inicial: ponto inicial
       - gamma: fator de redução do passo
-      - eta: fator de ???     # TODO: O que é o eta?
+      - eta: fator de redução mínima aceitável
       - maximo_iteracoes: número máximo de iterações
       - valor_minimo: valor mínimo da função para parar a execução
       - metodo: método de atualização
